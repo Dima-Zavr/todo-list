@@ -12,14 +12,18 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "antd": "^5.22.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-infinite-scroller": "^1.2.6",
+    "react-router-dom": "^7.1.0",
     "styled-components": "^6.1.13",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
@@ -42,7 +46,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.css": ["prettier --write"],
-    "src/**/*.{jsx,js,tsx,ts}": ["prettier --write"]
+    "src/**/*.css": [
+      "prettier --write"
+    ],
+    "src/**/*.{jsx,js,tsx,ts}": [
+      "prettier --write"
+    ]
   }
 }

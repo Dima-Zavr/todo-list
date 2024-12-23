@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3001"
+export const BASE_URL = "https://cms.laurence.host:1337/api"
 
 export const api = {
     get: async function (path, params = {}, token = null) {
