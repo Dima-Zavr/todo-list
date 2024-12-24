@@ -1,9 +1,8 @@
 export const baseTheme = {
     colors: {
-        primary: "#a2d2ff",
-        bg: "#3d3d3d",
-        font: "#ffffff",
-        fontPrimary: "#000000"
+        primary: "#0C68FB",
+        bg: "#F1F2F6",
+        font: "#000000"
     },
     media: {
         large: "(max-width: 1019px)",

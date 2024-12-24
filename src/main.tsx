@@ -6,10 +6,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import { PageHeader } from "./components/PageHeader/PageHeader"
 import { MainPage } from "./pages/MainPage/MainPage"
-import { FavouritesPage } from "./pages/FavouritesPage/FavouritesPage"
 import { AuthPage } from "./pages/AuthPage/AuthPage.jsx"
 
-import { api } from "./api/api"
+import { api } from "./api/api.ts"
 import React from "react"
 import { Button, Result } from "antd"
 
@@ -29,16 +28,6 @@ const router = createBrowserRouter([
             {
                 path: "",
                 element: <MainPage />
-                // loader: async () => {
-                //     return await api.get("/tasks").then((data) => data)
-                // }
-            },
-            {
-                path: "favourites",
-                element: <FavouritesPage />
-                // loader: async () => {
-                //     return await api.get("/pizza/catalog").then((data) => data)
-                // }
             },
             {
                 path: "auth",

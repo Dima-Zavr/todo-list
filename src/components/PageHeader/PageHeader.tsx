@@ -8,8 +8,7 @@ export const PageHeader = () => {
             <S.Container>
                 <S.Header>
                     <S.Left>
-                        <S.Title to="">Главная страница</S.Title>
-                        <S.Title to="favourites">Избранное</S.Title>
+                        <S.Title to="">Список задач</S.Title>
                     </S.Left>
                     <S.Right>
                         <S.Profile to={"/auth"}>

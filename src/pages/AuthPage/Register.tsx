@@ -13,10 +13,10 @@ type FieldType = {
 
 const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     api.post("/auth/local/register", values).then((response) => {
-        //localStorage.setItem("token", response.jwt)
-        //localStorage.setItem("userId", response.user.id)
+        localStorage.setItem("token", response.jwt)
+        localStorage.setItem("userId", response.user.id)
         console.log("Ответ", response)
-        //nav("/")
+        window.location.replace("/")
     })
     console.log("Success:", values)
 }
@@ -34,7 +34,6 @@ export const Register = () => {
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 1000 }}
-                initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
