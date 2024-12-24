@@ -6,6 +6,7 @@ export const MyForm = styled(Form)`
     padding: 32px;
     border: 1px solid ${baseTheme.colors.primary};
     border-radius: 32px;
+    width: 600px;
 `
 export const CustomCard = styled(Card)`
     border-color: ${({ type }) =>

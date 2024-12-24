@@ -126,7 +126,6 @@ export const MainPage = () => {
                         layout="vertical"
                         form={form}
                         name="add_task"
-                        initialValues={{ modifier: "public" }}
                         clearOnDestroy
                         onFinish={(values) => addTask(values)}
                     >

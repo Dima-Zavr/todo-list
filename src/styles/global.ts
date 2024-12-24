@@ -47,8 +47,6 @@ export default createGlobalStyle`
     font-size: 28px;
     font-weight: 700;
     color: ${baseTheme.colors.font};
-    width: 100%;
-    text-align: left;
     margin-bottom: 16px;
   }
 

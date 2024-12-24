@@ -1,9 +1,10 @@
 import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
-import React from "react"
+import React, { useContext } from "react"
 import type { FormProps } from "antd"
-import { Button, Form, Input } from "antd"
+import { Button, Flex, Form, Input } from "antd"
 import { MyForm } from "../../styles/components.ts"
 import { api } from "../../api/api.ts"
+import { PageContext } from "./AuthPage.jsx"
 
 type FieldType = {
     username?: string
@@ -26,19 +27,20 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
 }
 
 export const Register = () => {
+    const { setStage } = useContext(PageContext)
     return (
         <PageLayout>
-            <h2>Регистрация</h2>
             <MyForm
-                name="basic"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 1000 }}
+                name="register"
+                layout="vertical"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
-                <Form.Item<FieldType>
+                <Flex justify="center">
+                    <h1>Регистрация</h1>
+                </Flex>
+                <Form.Item
                     label="Имя"
                     name="username"
                     rules={[
@@ -49,10 +51,9 @@ export const Register = () => {
                         }
                     ]}
                 >
-                    <Input />
+                    <Input size="large" />
                 </Form.Item>
-
-                <Form.Item<FieldType>
+                <Form.Item
                     label="Email"
                     name="email"
                     rules={[
@@ -62,10 +63,9 @@ export const Register = () => {
                         }
                     ]}
                 >
-                    <Input />
+                    <Input size="large" />
                 </Form.Item>
-
-                <Form.Item<FieldType>
+                <Form.Item
                     label="Пароль"
                     name="password"
                     rules={[
@@ -75,13 +75,18 @@ export const Register = () => {
                         }
                     ]}
                 >
-                    <Input.Password />
+                    <Input.Password size="large" />
                 </Form.Item>
 
                 <Form.Item label={null}>
-                    <Button type="primary" htmlType="submit">
-                        Отправить
-                    </Button>
+                    <Flex gap="middle" justify="flex-end" align="center">
+                        <Button size="large" onClick={() => setStage("login")}>
+                            У меня уже есть аккаунт
+                        </Button>
+                        <Button size="large" type="primary" htmlType="submit">
+                            Зарегистрироваться
+                        </Button>
+                    </Flex>
                 </Form.Item>
             </MyForm>
         </PageLayout>
