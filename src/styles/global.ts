@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components"
+
 import { baseTheme } from "./theme.ts"
 
 export default createGlobalStyle`

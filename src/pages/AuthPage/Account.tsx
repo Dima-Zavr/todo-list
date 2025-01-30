@@ -1,5 +1,6 @@
-import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
 import { Button } from "antd"
+
+import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
 
 export const Account = () => {
     const logOut = () => {

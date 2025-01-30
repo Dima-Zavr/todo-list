@@ -1,7 +1,9 @@
-import * as S from "./PageHeader_components"
 import { Outlet } from "react-router-dom"
 import { Avatar } from "antd"
+
 import { LoginOutlined, UserOutlined } from "@ant-design/icons"
+
+import * as S from "./PageHeader_components"
 
 export const PageHeader = () => {
     return (
@@ -9,24 +11,18 @@ export const PageHeader = () => {
             <S.Container>
                 <S.Header>
                     <S.Left>
-                        <S.Title to="">Список задач</S.Title>
+                        <S.Title to="">T0d0 L1st</S.Title>
                     </S.Left>
                     <S.Right>
                         <S.Profile to={"/auth"}>
-                            {!!localStorage.getItem("token") ? (
+                            {localStorage.getItem("token") ? (
                                 <>
-                                    <Avatar
-                                        size="large"
-                                        icon={<UserOutlined />}
-                                    />
+                                    <Avatar size="large" icon={<UserOutlined />} />
                                     Профиль
                                 </>
                             ) : (
                                 <>
-                                    <Avatar
-                                        size="large"
-                                        icon={<LoginOutlined />}
-                                    />
+                                    <Avatar size="large" icon={<LoginOutlined />} />
                                     Войти
                                 </>
                             )}

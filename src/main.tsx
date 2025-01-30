@@ -1,16 +1,13 @@
-import GlobalStyles from "./styles/global"
 import "./index.css"
 
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { Button, Result } from "antd"
 
 import { PageHeader } from "./components/PageHeader/PageHeader"
-import { MainPage } from "./pages/MainPage/MainPage"
 import { AuthPage } from "./pages/AuthPage/AuthPage.jsx"
-
-import { api } from "./api/api.ts"
-import React from "react"
-import { Button, Result } from "antd"
+import { MainPage } from "./pages/MainPage/MainPage"
+import GlobalStyles from "./styles/global"
 
 const router = createBrowserRouter([
     {

@@ -2,16 +2,16 @@ import { createContext, useEffect, useState } from "react"
 
 import { PageLayout } from "@components/PageLayout/PageLayout.tsx"
 
+import { Account } from "./Account"
 import { Login } from "./Login"
 import { Register } from "./Register"
-import { Account } from "./Account"
 
 export const PageContext = createContext("account")
 
 export const AuthPage = () => {
     const [stage, setStage] = useState("account")
     useEffect(() => {
-        if (!!localStorage.getItem("token")) {
+        if (localStorage.getItem("token")) {
             setStage("account")
         } else {
             setStage("register")
@@ -26,9 +26,7 @@ export const AuthPage = () => {
 
     return (
         <PageLayout>
-            <PageContext.Provider value={{ setStage }}>
-                {Stages[stage]}
-            </PageContext.Provider>
+            <PageContext.Provider value={{ setStage }}>{Stages[stage]}</PageContext.Provider>
         </PageLayout>
     )
 }

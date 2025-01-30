@@ -1,4 +1,5 @@
 import styled from "styled-components"
+
 import { baseTheme } from "../../styles/theme.ts"
 
 export const Page = styled.div`

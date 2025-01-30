@@ -1,172 +1,68 @@
-import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import InfiniteScroll from "react-infinite-scroller"
+import { Form, Spin } from "antd"
+
+import { LoadingOutlined } from "@ant-design/icons"
+
 import { api } from "../../api/api.ts"
-import { Button, Form, Input, Modal, Radio, Space } from "antd"
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
-import { CustomCard } from "../../styles/components.ts"
-import { Translation } from "../../translation/translation.ts"
+import { Filters } from "../../components/Filters/Filters.tsx"
+import { MyCard } from "../../components/MyCard/MyCard.tsx"
+import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
+import { useTasksStore } from "../../store/TasksStore.ts"
+import { Ul } from "../../styles/components.ts"
 
-interface Values {
-    name?: string
-    description?: string
-    status?: string
-}
-interface Task {
-    id: number
-    attributes: {
-        name: string
-        description: string
-        status: "completed" | "not completed"
-        createdAt: string
-        publishedAt: string
-        updatedAt: string
-    }
-}
-interface Response {
-    data: Task[]
-    meta: {
-        pagination: {
-            page: number
-            pageCount: number
-            pageSize: number
-            total: number
-        }
-    }
-}
-
-const { TextArea } = Input
+import { Params } from "./MainPage.types.ts"
+import { MyModal } from "./MyModal.tsx"
 
 export const MainPage = () => {
-    const [params, setParams] = useState({})
-    const [response, setResponse] = useState<Response | {}>({})
+    const addTask = useTasksStore((state) => state.addTask)
+    const tasks = useTasksStore((state) => state.tasks)
+    const page = useTasksStore((state) => state.page)
+    const limit = useTasksStore((state) => state.limit)
+
+    let params: Params = {
+        "pagination[page]": page,
+        "pagination[pageSize]": limit
+    }
+
+    const [isHasMore, setIsHasMore] = useState(true)
 
     const [form] = Form.useForm()
-    const [open, setOpen] = useState(false)
-    const addTask = (values: Values) => {
-        api.post("/tasks", { data: values }).then((response) => {
-            console.log(response)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const loadRecipes = () => {
+        api.get("/tasks", params).then((response) => {
+            if (response.data?.length !== 0) {
+                response.data?.map((el) => {
+                    addTask(el)
+                })
+            } else {
+                setIsHasMore(false)
+            }
         })
-        console.log("Received values of form: ", values)
-        setOpen(false)
     }
 
-    const deleteTask = (id) => {
-        api.delete("/tasks/" + id).then((response) => {
-            console.log(response)
-        })
-    }
-
-    useEffect(() => {
-        api.get("/tasks", params).then((res) => {
-            setResponse(res)
-            console.log(res)
-        })
-    }, [params])
     return (
-        <>
-            <PageLayout>
-                <Button
-                    type="primary"
-                    size="large"
-                    onClick={() => {
-                        setOpen(true)
-                    }}
-                >
-                    Добавить задачу
-                </Button>
-                <ul>
-                    {response["data"]?.map((task) => (
-                        <li key={task.id}>
-                            <CustomCard
-                                type={task.attributes.status}
-                                title={`${task.attributes.name} ( ${Translation[task.attributes.status]} )`}
-                                extra={
-                                    <Space direction="horizontal">
-                                        <Button
-                                            onClick={() => {
-                                                form.setFieldsValue({
-                                                    name: task.attributes.name,
-                                                    description:
-                                                        task.attributes
-                                                            .description,
-                                                    status: task.attributes
-                                                        .status
-                                                })
-                                                setOpen(true)
-                                            }}
-                                        >
-                                            <EditOutlined />
-                                        </Button>
-                                        <Button
-                                            onClick={() => deleteTask(task.id)}
-                                        >
-                                            <DeleteOutlined />
-                                        </Button>
-                                    </Space>
-                                }
-                            >
-                                <p>{task.attributes.description}</p>
-                            </CustomCard>
-                            <br />
-                            <br />
-                        </li>
-                    ))}
-                </ul>
-            </PageLayout>
-            <Modal
-                open={open}
-                title="Добавить новую задачу"
-                okText="Добавить"
-                cancelText="Отменить"
-                okButtonProps={{ autoFocus: true, htmlType: "submit" }}
-                onCancel={() => setOpen(false)}
-                destroyOnClose
-                modalRender={(dom) => (
-                    <Form
-                        layout="vertical"
-                        form={form}
-                        name="add_task"
-                        clearOnDestroy
-                        onFinish={(values) => addTask(values)}
-                    >
-                        {dom}
-                    </Form>
-                )}
+        <PageLayout>
+            <MyModal form={form} setIsOpen={setIsOpen} isOpen={isOpen} />
+            <br />
+            <Filters params={params} setIsHasMore={setIsHasMore} />
+            <br />
+            <InfiniteScroll
+                element={Ul}
+                threshold={100}
+                pageStart={0}
+                loadMore={loadRecipes}
+                hasMore={isHasMore}
+                loader={<Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}
             >
-                <Form.Item
-                    name="name"
-                    label="Название задачи"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Пожалуйста, укажите название задачи!"
-                        }
-                    ]}
-                >
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name="description"
-                    label="Описание задачи"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Пожалуйста, укажите название задачи!"
-                        }
-                    ]}
-                >
-                    <TextArea rows={4} />
-                </Form.Item>
-                <Form.Item
-                    name="status"
-                    className="collection-create-form_last-form-item"
-                >
-                    <Radio.Group>
-                        <Radio value="not completed">Не выполнено</Radio>
-                        <Radio value="completed">Выполнено</Radio>
-                    </Radio.Group>
-                </Form.Item>
-            </Modal>
-        </>
+                {tasks?.map((task, i) => (
+                    <li key={i} id={`${task.id}`}>
+                        <MyCard task={task} form={form} setIsOpen={setIsOpen} />
+                        <br />
+                    </li>
+                ))}
+            </InfiniteScroll>
+        </PageLayout>
     )
 }

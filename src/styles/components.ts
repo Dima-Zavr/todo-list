@@ -1,5 +1,6 @@
+import { Card, Form } from "antd"
 import styled from "styled-components"
-import { Form, Card } from "antd"
+
 import { baseTheme } from "./theme.ts"
 
 export const MyForm = styled(Form)`
@@ -9,10 +10,24 @@ export const MyForm = styled(Form)`
     width: 600px;
 `
 export const CustomCard = styled(Card)`
-    border-color: ${({ type }) =>
-        type === "completed"
-            ? "green"
-            : type === "not completed"
-              ? "red"
-              : "white"};
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 3px solid
+        ${({ type }) => {
+            if (type === "completed") {
+                return "green"
+            } else if (type === "not completed") {
+                return "red"
+            } else if (type === "in progress") {
+                return "yellow"
+            }
+        }};
+`
+
+export const Ul = styled.ul`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
 `
