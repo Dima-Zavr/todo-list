@@ -1,27 +1,26 @@
 import { create } from "zustand"
 
-import { Task } from "../pages/MainPage/MainPage.types.ts"
-
-interface Tasks {
-    tasks: Task[]
-    page: number
-    limit: number
-    addTask: (task: Task) => void
-    removeAllTasks: () => void
-    updateTask: (task: Task) => void
-}
+import { Tasks } from "../interfaces/interfaces.ts"
 
 export const useTasksStore = create<Tasks>((set) => ({
     tasks: [],
     page: 1,
     limit: 5,
+    filters: [],
     addTask: (task) =>
         set((state) => ({
             page: Math.ceil(state.tasks.length / state.limit) + 1,
             tasks: [...state.tasks, task]
         })),
 
-    removeAllTasks: () => set({ tasks: [], page: 1 }),
+    removeAllTasks: (filter) =>
+        set((state) => ({
+            tasks: [],
+            page: 1,
+            filters: state.filters.includes(filter)
+                ? state.filters.filter((el) => el !== filter)
+                : [...state.filters, filter]
+        })),
 
     updateTask: (newTask) =>
         set((state) => ({

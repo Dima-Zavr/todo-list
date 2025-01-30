@@ -7,22 +7,23 @@ import { LoadingOutlined } from "@ant-design/icons"
 import { api } from "../../api/api.ts"
 import { Filters } from "../../components/Filters/Filters.tsx"
 import { MyCard } from "../../components/MyCard/MyCard.tsx"
+import { MyModal } from "../../components/MyModal/MyModal.tsx"
 import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
+import { Params, Response } from "../../interfaces/interfaces.ts"
 import { useTasksStore } from "../../store/TasksStore.ts"
 import { Ul } from "../../styles/components.ts"
-
-import { Params } from "./MainPage.types.ts"
-import { MyModal } from "./MyModal.tsx"
 
 export const MainPage = () => {
     const addTask = useTasksStore((state) => state.addTask)
     const tasks = useTasksStore((state) => state.tasks)
     const page = useTasksStore((state) => state.page)
     const limit = useTasksStore((state) => state.limit)
+    const filters = useTasksStore((state) => state.filters)
 
     let params: Params = {
         "pagination[page]": page,
-        "pagination[pageSize]": limit
+        "pagination[pageSize]": limit,
+        "filters[status]": filters
     }
 
     const [isHasMore, setIsHasMore] = useState(true)
@@ -31,7 +32,10 @@ export const MainPage = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const loadRecipes = () => {
-        api.get("/tasks", params).then((response) => {
+        if (filters.length === 0) {
+            delete params["filters[status]"]
+        }
+        api.get("/tasks", params).then((response: Response) => {
             if (response.data?.length !== 0) {
                 response.data?.map((el) => {
                     addTask(el)

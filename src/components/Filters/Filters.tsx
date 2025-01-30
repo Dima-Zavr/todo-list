@@ -8,11 +8,21 @@ import {
     HeartOutlined
 } from "@ant-design/icons"
 
-export const Filters = ({ params, setParams, setIsHasMore }) => {
+import { useTasksStore } from "../../store/TasksStore.ts"
+
+export const Filters = ({ setIsHasMore }) => {
+    const removeAllTasks = useTasksStore((state) => state.removeAllTasks)
+
     const [isCompleted, setIsCompleted] = useState(false)
     const [isInProgress, setIsInProgress] = useState(false)
     const [isNotCompleted, setIsNotCompleted] = useState(false)
     const [isLike, setIsLike] = useState(false)
+
+    const func = (str) => {
+        removeAllTasks(str)
+        setIsHasMore(true)
+    }
+
     return (
         <Flex>
             <Button
@@ -20,12 +30,7 @@ export const Filters = ({ params, setParams, setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsNotCompleted(!isNotCompleted)
-                    if (!isNotCompleted) {
-                        //ff
-                    } else {
-                        //ff
-                    }
-                    setIsHasMore(true)
+                    func("not completed")
                 }}
             >
                 <CloseSquareOutlined />
@@ -36,11 +41,7 @@ export const Filters = ({ params, setParams, setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsInProgress(!isInProgress)
-                    if (isInProgress) {
-                        //setParams((params["filters[status]"] = "in progress"))
-                    } else {
-                        //setParams(delete params["filters[status]"])
-                    }
+                    func("in progress")
                 }}
             >
                 <ClockCircleOutlined />В процессе
@@ -50,11 +51,7 @@ export const Filters = ({ params, setParams, setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsCompleted(!isCompleted)
-                    if (isCompleted) {
-                        setParams((params["filters[status]"] = "completed"))
-                    } else {
-                        setParams(delete params["filters[status]"])
-                    }
+                    func("completed")
                 }}
             >
                 <CheckSquareOutlined />

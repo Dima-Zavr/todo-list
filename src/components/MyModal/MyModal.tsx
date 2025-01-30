@@ -1,8 +1,7 @@
 import { Button, Form, Input, Modal, Radio } from "antd"
 
 import { api } from "../../api/api.ts"
-
-import { Values } from "./MainPage.types.ts"
+import { Values } from "../../interfaces/interfaces.ts"
 
 const { TextArea } = Input
 

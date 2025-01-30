@@ -1,8 +1,3 @@
-export interface Values {
-    title?: string
-    description?: string
-    status?: string
-}
 export interface Task {
     id: number
     attributes: {
@@ -25,9 +20,22 @@ export interface Response {
         }
     }
 }
-
+export interface Tasks {
+    tasks: Task[]
+    page: number
+    limit: number
+    filters: string[]
+    addTask: (task: Task) => void
+    removeAllTasks: (filter: string) => void
+    updateTask: (task: Task) => void
+}
 export interface Params {
     "pagination[page]": number
     "pagination[pageSize]": number
-    "filters[status]"?: string
+    "filters[status]"?: string[]
+}
+export interface Values {
+    title?: string
+    description?: string
+    status?: string
 }
