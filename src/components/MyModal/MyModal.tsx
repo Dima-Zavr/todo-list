@@ -2,10 +2,13 @@ import { Button, Form, Input, Modal, Radio } from "antd"
 
 import { api } from "../../api/api.ts"
 import { Values } from "../../interfaces/interfaces.ts"
+import { useTasksStore } from "../../store/TasksStore.ts"
 
 const { TextArea } = Input
 
 export const MyModal = ({ form, setIsOpen, isOpen }) => {
+    const updateTask = useTasksStore((state) => state.updateTask)
+
     const formAction = form.getFieldValue("action")
     const id = form.getFieldValue("id")
 
@@ -19,6 +22,14 @@ export const MyModal = ({ form, setIsOpen, isOpen }) => {
     const changeTask = (values: Values) => {
         api.put("/tasks/" + id, { data: values }).then((response) => {
             console.log(response)
+        })
+        updateTask({
+            id: id,
+            attributes: {
+                status: values.status,
+                title: values.title,
+                description: values.description
+            }
         })
         setIsOpen(false)
     }

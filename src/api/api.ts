@@ -1,19 +1,19 @@
+import { parseParams } from "./parseParams.ts"
+
 export const BASE_URL = "https://cms.laurence.host/api"
 
 export const api = {
     get: async function (path, params = {}, token = null) {
         try {
-            const urlWithParams = new URL(BASE_URL + path)
-            Object.keys(params).forEach((key) =>
-                urlWithParams.searchParams.append(key, params[key])
-            )
+            const newUrl = new URL(BASE_URL + path)
+            const fullUrl = parseParams(newUrl, params)
 
             const headers = { "Content-Type": "application/json" }
             if (token) {
                 headers["Authorization"] = `Bearer ${token}`
             }
 
-            const response = await fetch(urlWithParams, {
+            const response = await fetch(fullUrl, {
                 method: "GET",
                 headers: headers
             })

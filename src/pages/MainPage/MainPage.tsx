@@ -21,9 +21,9 @@ export const MainPage = () => {
     const filters = useTasksStore((state) => state.filters)
 
     let params: Params = {
+        "sort[id]": "asc",
         "pagination[page]": page,
-        "pagination[pageSize]": limit,
-        "filters[status]": filters
+        "pagination[pageSize]": limit
     }
 
     const [isHasMore, setIsHasMore] = useState(true)
@@ -32,9 +32,15 @@ export const MainPage = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     const loadRecipes = () => {
-        if (filters.length === 0) {
-            delete params["filters[status]"]
+        if (filters.length !== 0) {
+            if (filters.includes("like")) {
+                if (localStorage.getItem("likeArr") !== []) {
+                    params["filters[id]"] = JSON.parse(localStorage.getItem("likeArr"))
+                }
+            }
+            params["filters[status]"] = filters.filter((el) => el !== "like")
         }
+
         api.get("/tasks", params).then((response: Response) => {
             if (response.data?.length !== 0) {
                 response.data?.map((el) => {

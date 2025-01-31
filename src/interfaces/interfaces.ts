@@ -1,12 +1,12 @@
 export interface Task {
     id: number
     attributes: {
+        status: "not completed" | "in progress" | "completed"
         title: string
         description: string
-        status: "completed" | "not completed" | "in progress"
-        createdAt: string
-        publishedAt: string
-        updatedAt: string
+        createdAt?: string
+        publishedAt?: string
+        updatedAt?: string
     }
 }
 export interface Response {
@@ -26,16 +26,20 @@ export interface Tasks {
     limit: number
     filters: string[]
     addTask: (task: Task) => void
+    addLikeTask: (task: Task, likeArr: number[]) => void
     removeAllTasks: (filter: string) => void
+    removeTask: (del: Task) => void
     updateTask: (task: Task) => void
 }
 export interface Params {
+    "sort[id]": "asc" | "desc"
     "pagination[page]": number
     "pagination[pageSize]": number
     "filters[status]"?: string[]
+    "filters[id]"?: number[]
 }
 export interface Values {
-    title?: string
-    description?: string
-    status?: string
+    status: "not completed" | "in progress" | "completed"
+    title: string
+    description: string
 }

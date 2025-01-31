@@ -22,10 +22,18 @@ export const useTasksStore = create<Tasks>((set) => ({
                 : [...state.filters, filter]
         })),
 
+    removeTask: (del) =>
+        set((state) => ({
+            tasks: state.tasks.filter((el) => el.id !== del.id)
+        })),
+
     updateTask: (newTask) =>
         set((state) => ({
             tasks: state.tasks.map((el) => {
                 if (el.id === newTask.id) {
+                    newTask.attributes.createdAt = el.attributes.createdAt
+                    newTask.attributes.publishedAt = el.attributes.publishedAt
+                    newTask.attributes.updatedAt = el.attributes.updatedAt
                     return newTask
                 } else {
                     return el

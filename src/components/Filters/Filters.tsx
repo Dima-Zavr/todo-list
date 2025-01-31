@@ -18,8 +18,8 @@ export const Filters = ({ setIsHasMore }) => {
     const [isNotCompleted, setIsNotCompleted] = useState(false)
     const [isLike, setIsLike] = useState(false)
 
-    const func = (str) => {
-        removeAllTasks(str)
+    const changeFilters = (filter) => {
+        removeAllTasks(filter)
         setIsHasMore(true)
     }
 
@@ -30,7 +30,7 @@ export const Filters = ({ setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsNotCompleted(!isNotCompleted)
-                    func("not completed")
+                    changeFilters("not completed")
                 }}
             >
                 <CloseSquareOutlined />
@@ -41,7 +41,7 @@ export const Filters = ({ setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsInProgress(!isInProgress)
-                    func("in progress")
+                    changeFilters("in progress")
                 }}
             >
                 <ClockCircleOutlined />В процессе
@@ -51,7 +51,7 @@ export const Filters = ({ setIsHasMore }) => {
                 size="large"
                 onClick={() => {
                     setIsCompleted(!isCompleted)
-                    func("completed")
+                    changeFilters("completed")
                 }}
             >
                 <CheckSquareOutlined />
@@ -60,7 +60,10 @@ export const Filters = ({ setIsHasMore }) => {
             <Button
                 type={isLike ? "primary" : "default"}
                 size="large"
-                onClick={() => setIsLike(!isLike)}
+                onClick={() => {
+                    setIsLike(!isLike)
+                    changeFilters("like")
+                }}
             >
                 <HeartOutlined />
                 Избранные

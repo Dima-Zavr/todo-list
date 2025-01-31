@@ -4,9 +4,12 @@ import { Button, Space } from "antd"
 import { DeleteOutlined, EditOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons"
 
 import { api } from "../../api/api.ts"
+import { useTasksStore } from "../../store/TasksStore.ts"
 import { CustomCard } from "../../styles/components.ts"
 
 export const MyCard = ({ task, form, setIsOpen }) => {
+    const removeTask = useTasksStore((state) => state.removeTask)
+
     const [likeArr, setLikeArr] = useState(
         localStorage.getItem("likeArr") === null ? [] : JSON.parse(localStorage.getItem("likeArr"))
     )
@@ -15,6 +18,7 @@ export const MyCard = ({ task, form, setIsOpen }) => {
         api.delete("/tasks/" + id).then((response) => {
             console.log(response)
         })
+        removeTask(task)
     }
 
     const likeTask = (id) => {
