@@ -1,4 +1,4 @@
-export const parseParams = (url, params) => {
+export const parseParams = (url: string, params: object) => {
     const queryParams = []
 
     for (const key in params) {

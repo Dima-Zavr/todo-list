@@ -1,9 +1,11 @@
-import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
 import React, { useContext } from "react"
 import type { FormProps } from "antd"
 import { Button, Flex, Form, Input } from "antd"
-import { MyForm } from "../../styles/components.ts"
+
 import { api } from "../../api/api.ts"
+import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
+import { MyForm } from "../../styles/components.ts"
+
 import { PageContext } from "./AuthPage.jsx"
 
 type FieldType = {
@@ -45,8 +47,7 @@ export const Login = () => {
                     rules={[
                         {
                             required: true,
-                            message:
-                                "Пожалуйста, введи ваше пользовательское имя!"
+                            message: "Пожалуйста, введи ваше пользовательское имя!"
                         }
                     ]}
                 >
@@ -66,10 +67,7 @@ export const Login = () => {
                 </Form.Item>
                 <Form.Item label={null}>
                     <Flex gap="middle" justify="flex-end" align="center">
-                        <Button
-                            size="large"
-                            onClick={() => setStage("register")}
-                        >
+                        <Button size="large" onClick={() => setStage("register")}>
                             У меня еще нет аккаунта
                         </Button>
                         <Button size="large" type="primary" htmlType="submit">

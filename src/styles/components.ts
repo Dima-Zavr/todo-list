@@ -25,7 +25,7 @@ export const CustomCard = styled(Card)`
         }};
 `
 
-export const Ul = styled.ul`
+export const Flex = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;

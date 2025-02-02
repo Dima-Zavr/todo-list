@@ -11,7 +11,7 @@ import { MyModal } from "../../components/MyModal/MyModal.tsx"
 import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
 import { Params, Response } from "../../interfaces/interfaces.ts"
 import { useTasksStore } from "../../store/TasksStore.ts"
-import { Ul } from "../../styles/components.ts"
+import { Flex } from "../../styles/components.ts"
 
 export const MainPage = () => {
     const addTask = useTasksStore((state) => state.addTask)
@@ -58,21 +58,26 @@ export const MainPage = () => {
             <br />
             <Filters params={params} setIsHasMore={setIsHasMore} />
             <br />
-            <InfiniteScroll
-                element={Ul}
-                threshold={100}
-                pageStart={0}
-                loadMore={loadRecipes}
-                hasMore={isHasMore}
-                loader={<Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />}
-            >
-                {tasks?.map((task, i) => (
-                    <li key={i} id={`${task.id}`}>
-                        <MyCard task={task} form={form} setIsOpen={setIsOpen} />
-                        <br />
-                    </li>
-                ))}
-            </InfiniteScroll>
+            <Flex>
+                <InfiniteScroll
+                    threshold={100}
+                    pageStart={0}
+                    loadMore={loadRecipes}
+                    hasMore={isHasMore}
+                    loader={
+                        <Flex key={0}>
+                            <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+                        </Flex>
+                    }
+                >
+                    {tasks?.map((task) => (
+                        <div id={`${task.id}`} key={task.id}>
+                            <MyCard task={task} form={form} setIsOpen={setIsOpen} />
+                            <br />
+                        </div>
+                    ))}
+                </InfiniteScroll>
+            </Flex>
         </PageLayout>
     )
 }

@@ -5,11 +5,17 @@
             "@/*": ["src/*"],
             "@api/*": ["src/api/*"],
             "@assets/*": ["src/assets/*"],
-            "@components/*": ["src/components/*"],
+            "@store/*": ["src/store/*"],
             "@pages/*": ["src/pages/*"],
-            "@store/*": ["src/store/*"]
+            "@components/*": ["src/components/*"]
         }
     },
-    "include": ["*.js", "**/*.ts", "**/*.tsx"],
+    "include": [
+        "*.js",
+        "**/*.ts",
+        "**/*.tsx",
+        "**/*.jsx",
+        "src",
+    ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

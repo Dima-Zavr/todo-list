@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState } from "react"
 
-import { PageLayout } from "@components/PageLayout/PageLayout.tsx"
+import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
 
 import { Account } from "./Account"
-import { Login } from "./Login"
+import { Login } from "./Login.tsx"
 import { Register } from "./Register"
 
 export const PageContext = createContext("account")
