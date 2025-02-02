@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+# T0d0 L1st
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+### ```npm run dev``` Запустить проект 
+### ```npm run test``` Запустить модульное тестирование (unit-тесты)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Проект реализует web-приложение для создания и отслеживания задач, в рамках проекта создана авторизованная зона. На главной странице отображаются задачи, в приложении можно создать новую задачу, добавить или убрать задачи из избранного, отредактировать любую задачу, а также удалить задачу. Тажке для удобства реализована возможность фильтрации задач, по таким критериям как "Не выполненные", "В процессе", "Выполненные", "Избранные".
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Основной стек технологий:
 
-- Configure the top-level `parserOptions` property like this:
+- Фреймворк (библиотека) - [React](https://react.dev/) + TypeScript 
+- Сборщик приложения - [Vite](https://vitejs.dev/)
+- Чистота кода - [Prettier](https://prettier.io/) + [ESLint](https://eslint.org/) + [Husky](https://www.npmjs.com/package/husky) + [Lint Staged](https://www.npmjs.com/package/lint-staged)
+- Стилизация - [Styled components](https://styled-components.com/) 
+- Маршрутизация - [React Router Dom](https://reactrouter.com/en/main)
+- Бесконечная прокрутка (добавление задач по мере пролистывания страницы) - [React-Infinite-Scroller](https://www.npmjs.com/package/react-infinite-scroller)
+- Получение данных с сервера - [Fetch](https://learn.javascript.ru/fetch) 
+- State-manager - [Zustand](https://zustand.docs.pmnd.rs/getting-started/introduction)
+- Модульное тестирование (unit-тесты) - [Vitest](https://vitest.dev/)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### На данный момент реализовано:
 
-```js
-// eslint.config.mjs
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Добавление задачи
+- Удаление задачи
+- Получение списка всех задач
+- Редактирование задачи (изменение названия, описания, или статуса задачи)
+- Infinite Scroll (бесконечная прокрутка страницы)
+- Возможность добавить задачу в избранное, избранные задачи отображаются даже после обновления страницы
+- Фильтрация задач по “Все”, “Выполненные”, "В процессе", “Не выполненные”, “Избранное”
+- Вход в аккаунт / Регистрация в аккаунте с помощью имени, email и пароля
