@@ -31,6 +31,9 @@ export const MainPage = () => {
     const [form] = Form.useForm()
     const [isOpen, setIsOpen] = useState(false)
 
+    const likeArr =
+        localStorage.getItem("likeArr") === null ? [] : JSON.parse(localStorage.getItem("likeArr"))
+
     const loadRecipes = () => {
         if (filters.length !== 0) {
             if (filters.includes("like")) {
@@ -72,7 +75,12 @@ export const MainPage = () => {
                 >
                     {tasks?.map((task) => (
                         <div id={`${task.id}`} key={task.id}>
-                            <MyCard task={task} form={form} setIsOpen={setIsOpen} />
+                            <MyCard
+                                like={likeArr?.includes(task.id)}
+                                task={task}
+                                form={form}
+                                setIsOpen={setIsOpen}
+                            />
                             <br />
                         </div>
                     ))}

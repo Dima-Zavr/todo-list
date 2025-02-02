@@ -7,12 +7,10 @@ import { api } from "../../api/api.ts"
 import { useTasksStore } from "../../store/TasksStore.ts"
 import { CustomCard } from "../../styles/components.ts"
 
-export const MyCard = ({ task, form, setIsOpen }) => {
+export const MyCard = ({ like, task, form, setIsOpen }) => {
     const removeTask = useTasksStore((state) => state.removeTask)
 
-    const [likeArr, setLikeArr] = useState(
-        localStorage.getItem("likeArr") === null ? [] : JSON.parse(localStorage.getItem("likeArr"))
-    )
+    const [isLike, setIsLike] = useState(like)
 
     const deleteTask = (id) => {
         api.delete("/tasks/" + id).then((response) => {
@@ -22,15 +20,18 @@ export const MyCard = ({ task, form, setIsOpen }) => {
     }
 
     const likeTask = (id) => {
+        let likeArr =
+            localStorage.getItem("likeArr") === null
+                ? []
+                : JSON.parse(localStorage.getItem("likeArr"))
         if (likeArr?.includes(id)) {
             const newLikeArr = likeArr.filter((el) => el !== id)
             localStorage.setItem("likeArr", JSON.stringify(newLikeArr))
-            setLikeArr(newLikeArr)
         } else {
             const newLikeArr = [...likeArr, id]
             localStorage.setItem("likeArr", JSON.stringify(newLikeArr))
-            setLikeArr(newLikeArr)
         }
+        setIsLike(!isLike)
     }
 
     return (
@@ -40,7 +41,7 @@ export const MyCard = ({ task, form, setIsOpen }) => {
             extra={
                 <Space direction="horizontal">
                     <Button onClick={() => likeTask(task.id)}>
-                        {likeArr?.includes(task.id) ? <HeartFilled /> : <HeartOutlined />}
+                        {isLike ? <HeartFilled /> : <HeartOutlined />}
                     </Button>
                     <Button
                         onClick={() => {

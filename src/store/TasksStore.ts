@@ -10,7 +10,7 @@ export const useTasksStore = create<Tasks>((set) => ({
     addTask: (task) =>
         set((state) => ({
             page: Math.ceil(state.tasks.length / state.limit) + 1,
-            tasks: [...state.tasks, task]
+            tasks: state.tasks.includes(task) ? state.tasks : [...state.tasks, task]
         })),
 
     removeAllTasks: (filter) =>
