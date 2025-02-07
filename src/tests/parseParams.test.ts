@@ -1,9 +1,9 @@
 import { expect, test } from "vitest"
 
 import { parseParams } from "../api/parseParams.ts"
-import { Params } from "../interfaces/interfaces.ts"
+import { IParams } from "../interfaces/interfaces.ts"
 
-const params1: Params = {
+const params1: IParams = {
     "sort[id]": "asc",
     "pagination[page]": 2,
     "pagination[pageSize]": 4
@@ -14,7 +14,7 @@ test("проверяем параметры", () => {
     )
 })
 
-const params2: Params = {
+const params2: IParams = {
     "sort[id]": "desc",
     "pagination[page]": 3,
     "pagination[pageSize]": 7,
@@ -26,7 +26,7 @@ test("проверяем параметры", () => {
     )
 })
 
-const params3: Params = {
+const params3: IParams = {
     "sort[id]": "asc",
     "pagination[page]": 1,
     "pagination[pageSize]": 10,

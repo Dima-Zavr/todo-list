@@ -3,17 +3,17 @@ import { Avatar } from "antd"
 
 import { LoginOutlined, UserOutlined } from "@ant-design/icons"
 
-import * as S from "./PageHeader_components"
+import { STContainer, StHeader, StLeft, StProfile, StRight, StTitle } from "./PageHeader_components"
 
 export const PageHeader = () => (
     <>
-        <S.Container>
-            <S.Header>
-                <S.Left>
-                    <S.Title to="">T0d0 L1st</S.Title>
-                </S.Left>
-                <S.Right>
-                    <S.Profile to={"/auth"}>
+        <STContainer>
+            <StHeader>
+                <StLeft>
+                    <StTitle to="">T0d0 L1st</StTitle>
+                </StLeft>
+                <StRight>
+                    <StProfile to={"/auth"}>
                         {localStorage.getItem("token") ? (
                             <>
                                 <Avatar size="large" icon={<UserOutlined />} />
@@ -25,10 +25,10 @@ export const PageHeader = () => (
                                 Войти
                             </>
                         )}
-                    </S.Profile>
-                </S.Right>
-            </S.Header>
-        </S.Container>
+                    </StProfile>
+                </StRight>
+            </StHeader>
+        </STContainer>
         <Outlet />
     </>
 )

@@ -2,12 +2,12 @@ import styled from "styled-components"
 
 import { baseTheme } from "../../styles/theme.ts"
 
-export const Page = styled.div`
+export const StPage = styled.div`
     display: flex;
     justify-content: center;
     background-color: ${baseTheme.colors.bg};
 `
-export const Container = styled.div`
+export const StContainer = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;

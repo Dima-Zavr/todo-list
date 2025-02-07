@@ -1,7 +1,7 @@
-import { Container, Page } from "./PageLayout_components"
+import { StContainer, StPage } from "./PageLayout_components"
 
 export const PageLayout = ({ children }) => (
-    <Page>
-        <Container>{children}</Container>
-    </Page>
+    <StPage>
+        <StContainer>{children}</StContainer>
+    </StPage>
 )

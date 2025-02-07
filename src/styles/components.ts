@@ -3,13 +3,13 @@ import styled from "styled-components"
 
 import { baseTheme } from "./theme.ts"
 
-export const MyForm = styled(Form)`
+export const StMyForm = styled(Form)`
     padding: 32px;
     border: 1px solid ${baseTheme.colors.primary};
     border-radius: 32px;
     width: 600px;
 `
-export const CustomCard = styled(Card)`
+export const StCustomCard = styled(Card)`
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -25,7 +25,7 @@ export const CustomCard = styled(Card)`
         }};
 `
 
-export const Flex = styled.div`
+export const StFlex = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;

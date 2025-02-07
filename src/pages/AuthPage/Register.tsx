@@ -4,7 +4,7 @@ import { Button, Flex, Form, Input } from "antd"
 
 import { api } from "../../api/api.ts"
 import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
-import { MyForm } from "../../styles/components.ts"
+import { StMyForm } from "../../styles/components.ts"
 
 import { PageContext } from "./AuthPage.jsx"
 
@@ -32,7 +32,7 @@ export const Register = () => {
     const { setStage } = useContext(PageContext)
     return (
         <PageLayout>
-            <MyForm
+            <StMyForm
                 name="register"
                 layout="vertical"
                 onFinish={onFinish}
@@ -89,7 +89,7 @@ export const Register = () => {
                         </Button>
                     </Flex>
                 </Form.Item>
-            </MyForm>
+            </StMyForm>
         </PageLayout>
     )
 }

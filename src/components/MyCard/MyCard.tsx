@@ -5,7 +5,9 @@ import { DeleteOutlined, EditOutlined, HeartFilled, HeartOutlined } from "@ant-d
 
 import { api } from "../../api/api.ts"
 import { useTasksStore } from "../../store/TasksStore.ts"
-import { CustomCard } from "../../styles/components.ts"
+import { StCustomCard } from "../../styles/components.ts"
+
+import { likeTask } from "./likeTask.ts"
 
 export const MyCard = ({ like, task, form, setIsOpen }) => {
     const removeTask = useTasksStore((state) => state.removeTask)
@@ -19,28 +21,17 @@ export const MyCard = ({ like, task, form, setIsOpen }) => {
         removeTask(task)
     }
 
-    const likeTask = (id) => {
-        let likeArr =
-            localStorage.getItem("likeArr") === null
-                ? []
-                : JSON.parse(localStorage.getItem("likeArr"))
-        if (likeArr?.includes(id)) {
-            const newLikeArr = likeArr.filter((el) => el !== id)
-            localStorage.setItem("likeArr", JSON.stringify(newLikeArr))
-        } else {
-            const newLikeArr = [...likeArr, id]
-            localStorage.setItem("likeArr", JSON.stringify(newLikeArr))
-        }
-        setIsLike(!isLike)
-    }
-
     return (
-        <CustomCard
+        <StCustomCard
             type={task.attributes.status}
             title={`${task.id}. ${task.attributes.title}`}
             extra={
                 <Space direction="horizontal">
-                    <Button onClick={() => likeTask(task.id)}>
+                    <Button
+                        onClick={() => {
+                            setIsLike(likeTask(task.id, isLike))
+                        }}
+                    >
                         {isLike ? <HeartFilled /> : <HeartOutlined />}
                     </Button>
                     <Button
@@ -64,6 +55,6 @@ export const MyCard = ({ like, task, form, setIsOpen }) => {
             }
         >
             <p>{task.attributes.description}</p>
-        </CustomCard>
+        </StCustomCard>
     )
 }

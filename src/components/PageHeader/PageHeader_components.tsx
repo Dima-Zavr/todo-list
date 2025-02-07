@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import { baseTheme } from "../../styles/theme"
 
-export const Container = styled.div`
+export const STContainer = styled.div`
     width: 100%;
     border-bottom: 1px solid ${baseTheme.colors.primary};
     background-color: ${baseTheme.colors.bg};
@@ -16,7 +16,7 @@ export const Container = styled.div`
         border-top: 1px solid ${baseTheme.colors.primary};
     }
 `
-export const Header = styled.header`
+export const StHeader = styled.header`
     max-width: 1360px;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@ export const Header = styled.header`
         height: 60px;
     }
 `
-export const Left = styled.div`
+export const StLeft = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
@@ -42,7 +42,7 @@ export const Left = styled.div`
         width: 75%;
     }
 `
-export const Right = styled.div`
+export const StRight = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
@@ -52,7 +52,7 @@ export const Right = styled.div`
         width: 25%;
     }
 `
-export const Title = styled(NavLink)`
+export const StTitle = styled(NavLink)`
     display: flex;
     box-sizing: border-box;
     font-size: 20px;
@@ -81,7 +81,7 @@ export const Title = styled(NavLink)`
         font-size: 14px;
     }
 `
-export const Profile = styled(Title)`
+export const StProfile = styled(StTitle)`
     gap: 8px;
     @media ${baseTheme.media.medium} {
         gap: 0;

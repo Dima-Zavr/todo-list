@@ -1,8 +1,8 @@
 import { create } from "zustand"
 
-import { Tasks } from "../interfaces/interfaces.ts"
+import { ITasks } from "../interfaces/interfaces.ts"
 
-export const useTasksStore = create<Tasks>((set) => ({
+export const useTasksStore = create<ITasks>((set) => ({
     tasks: [],
     page: 1,
     limit: 5,

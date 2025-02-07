@@ -9,9 +9,9 @@ import { Filters } from "../../components/Filters/Filters.tsx"
 import { MyCard } from "../../components/MyCard/MyCard.tsx"
 import { MyModal } from "../../components/MyModal/MyModal.tsx"
 import { PageLayout } from "../../components/PageLayout/PageLayout.tsx"
-import { Params, Response } from "../../interfaces/interfaces.ts"
+import { IParams, IResponse } from "../../interfaces/interfaces.ts"
 import { useTasksStore } from "../../store/TasksStore.ts"
-import { Flex } from "../../styles/components.ts"
+import { StFlex } from "../../styles/components.ts"
 
 export const MainPage = () => {
     const addTask = useTasksStore((state) => state.addTask)
@@ -20,7 +20,7 @@ export const MainPage = () => {
     const limit = useTasksStore((state) => state.limit)
     const filters = useTasksStore((state) => state.filters)
 
-    let params: Params = {
+    let params: IParams = {
         "sort[id]": "asc",
         "pagination[page]": page,
         "pagination[pageSize]": limit
@@ -44,7 +44,7 @@ export const MainPage = () => {
             params["filters[status]"] = filters.filter((el) => el !== "like")
         }
 
-        api.get("/tasks", params).then((response: Response) => {
+        api.get("/tasks", params).then((response: IResponse) => {
             if (response.data?.length !== 0) {
                 response.data?.map((el) => {
                     addTask(el)
@@ -61,16 +61,16 @@ export const MainPage = () => {
             <br />
             <Filters params={params} setIsHasMore={setIsHasMore} />
             <br />
-            <Flex>
+            <StFlex>
                 <InfiniteScroll
                     threshold={100}
                     pageStart={0}
                     loadMore={loadRecipes}
                     hasMore={isHasMore}
                     loader={
-                        <Flex key={0}>
+                        <StFlex key={0}>
                             <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-                        </Flex>
+                        </StFlex>
                     }
                 >
                     {tasks?.map((task) => (
@@ -85,7 +85,7 @@ export const MainPage = () => {
                         </div>
                     ))}
                 </InfiniteScroll>
-            </Flex>
+            </StFlex>
         </PageLayout>
     )
 }
